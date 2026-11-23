@@ -109,6 +109,12 @@ export const restoreMessage = (id: string, mid: string) =>
 
 export const deleteMessage = (id: string, mid: string) => apiRequest<void>(msgPath(id, mid), { method: 'DELETE', mailboxId: id });
 
+export const sendEmail = (id: string, body: { to: string; subject?: string; text_body: string; html_body?: string }) =>
+  apiRequest<{ success: boolean; message_id: string; delivery_status: string; sent_to: string; details?: string }>(
+    `${mbxPath(id)}/send`,
+    { method: 'POST', body, mailboxId: id },
+  );
+
 export const bulkMessages = (id: string, ids: string[], action: BulkAction) =>
   apiRequest<{ updated: number }>(`${mbxPath(id)}/messages/bulk`, { method: 'POST', body: { ids, action }, mailboxId: id });
 

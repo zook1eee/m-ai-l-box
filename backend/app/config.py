@@ -48,6 +48,15 @@ class Settings(BaseSettings):
     mailgun_timestamp_tolerance_seconds: int = 12 * 3600  # Mailgun retries for up to 8 h
     process_inline: bool = False  # process deliveries in-process instead of Celery (tests / lite dev)
 
+    # Outbound Relay (Sending)
+    smtp_outbound_enabled: bool = False
+    smtp_outbound_host: str | None = None
+    smtp_outbound_port: int = 587
+    smtp_outbound_user: str | None = None
+    smtp_outbound_password: str | None = None
+    smtp_outbound_starttls: bool = True
+    smtp_outbound_ssl: bool = False
+
     # Limits
     max_message_bytes: int = 25 * MB
     max_upload_bytes: int = 25 * MB

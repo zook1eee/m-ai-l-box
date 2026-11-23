@@ -41,6 +41,22 @@ export interface MessageSummary {
   size_bytes: number;
   has_otp: boolean;
   is_demo: boolean;
+  is_sent?: boolean;
+}
+
+export interface SendEmailPayload {
+  to: string;
+  subject?: string;
+  text_body: string;
+  html_body?: string;
+}
+
+export interface SendEmailResult {
+  success: boolean;
+  message_id: string;
+  delivery_status: string;
+  sent_to: string;
+  details?: string;
 }
 
 export type ScanStatus = 'not_scanned' | 'pending' | 'clean' | 'infected' | 'error';
@@ -198,7 +214,7 @@ export interface MeResult {
   usage: Usage;
 }
 
-export type Folder = 'inbox' | 'starred' | 'trash' | 'all';
+export type Folder = 'inbox' | 'sent' | 'starred' | 'trash' | 'all';
 
 export type BulkAction = 'read' | 'unread' | 'star' | 'unstar' | 'trash' | 'restore' | 'delete';
 

@@ -3,6 +3,7 @@ import { errorMessage } from './api/client';
 import * as api from './api/endpoints';
 import type { Mailbox } from './api/types';
 import { AuthDialog, type AuthMode } from './components/AuthDialog';
+import { ComposeDialog } from './components/ComposeDialog';
 import { CreateMailboxDialog } from './components/CreateMailboxDialog';
 import { ErrorBanner, Spinner } from './components/Feedback';
 import { HelpDialog } from './components/HelpDialog';
@@ -84,6 +85,7 @@ function Shell() {
   const { route, navigate } = useHashRoute();
 
   const [createOpen, setCreateOpen] = useState(false);
+  const [composeOpen, setComposeOpen] = useState(false);
   const [existingOpen, setExistingOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -180,6 +182,10 @@ function Shell() {
         setDrawerOpen(false);
         setCreateOpen(true);
       },
+      openCompose: () => {
+        setDrawerOpen(false);
+        setComposeOpen(true);
+      },
       openExisting: () => {
         setDrawerOpen(false);
         setExistingOpen(true);
@@ -265,7 +271,7 @@ function Shell() {
       <MailView
         key={active.id}
         mailbox={active}
-        folder={view as 'inbox' | 'starred' | 'trash'}
+        folder={view as 'inbox' | 'sent' | 'starred' | 'trash'}
         messageId={route.messageId}
         search={search}
         onClearSearch={() => setSearch(EMPTY_SEARCH)}
@@ -371,6 +377,7 @@ function Shell() {
       </div>
 
       <CreateMailboxDialog open={createOpen} onClose={() => setCreateOpen(false)} />
+      <ComposeDialog open={composeOpen} onClose={() => setComposeOpen(false)} onSent={doRefresh} />
       <OpenMailboxDialog open={existingOpen} onClose={() => setExistingOpen(false)} />
       <HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} onShortcuts={() => setShortcutsOpen(true)} />
       <ShortcutsDialog open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />

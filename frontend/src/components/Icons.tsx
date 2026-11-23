@@ -270,6 +270,11 @@ export const IconLink = (p: IconProps) => (
     <path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1" />
   </Svg>
 );
+export const IconSend = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+  </Svg>
+);
 export const IconHash = (p: IconProps) => (
   <Svg {...p}>
     <path d="M5 9h15M4 15h15M10 4L8 20M16 4l-2 16" />

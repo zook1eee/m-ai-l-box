@@ -3,11 +3,11 @@ import { useCallback, useEffect, useState } from 'react';
 // Hash-based routing: "#/inbox", "#/inbox/<messageId>", "#/attachments", ...
 // Only view names and message ids live in the URL — never credentials.
 
-export type View = 'inbox' | 'starred' | 'trash' | 'attachments' | 'files' | 'api-keys' | 'account' | 'admin' | 'assistant' | 'welcome';
+export type View = 'inbox' | 'sent' | 'starred' | 'trash' | 'attachments' | 'files' | 'api-keys' | 'account' | 'admin' | 'assistant' | 'welcome';
 
-const VIEWS: View[] = ['inbox', 'starred', 'trash', 'attachments', 'files', 'api-keys', 'account', 'admin', 'assistant', 'welcome'];
+const VIEWS: View[] = ['inbox', 'sent', 'starred', 'trash', 'attachments', 'files', 'api-keys', 'account', 'admin', 'assistant', 'welcome'];
 
-export const MAIL_VIEWS: View[] = ['inbox', 'starred', 'trash'];
+export const MAIL_VIEWS: View[] = ['inbox', 'sent', 'starred', 'trash'];
 
 export interface Route {
   view: View;

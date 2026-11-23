@@ -109,8 +109,24 @@ class MessageSummary(BaseModel):
     size_bytes: int
     has_otp: bool
     is_demo: bool
+    is_sent: bool = False
 
     model_config = {"populate_by_name": True}
+
+
+class SendEmailIn(BaseModel):
+    to: str = Field(min_length=3, max_length=320)
+    subject: str = Field(default="(No subject)", max_length=300)
+    text_body: str = Field(default="", max_length=200_000)
+    html_body: str | None = Field(default=None, max_length=500_000)
+
+
+class SendEmailOut(BaseModel):
+    success: bool
+    message_id: uuid.UUID
+    delivery_status: str
+    sent_to: str
+    details: str | None = None
 
 
 class MessageDetail(MessageSummary):
@@ -270,6 +286,7 @@ def message_summary(m: Message) -> MessageSummary:
         deleted_at=m.deleted_at, has_attachments=m.attachment_count > 0,
         attachment_count=m.attachment_count, size_bytes=m.size_bytes,
         has_otp=bool(m.otp_codes), is_demo=m.is_demo,
+        is_sent=m.source == "outbound",
     )
 
 

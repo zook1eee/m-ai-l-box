@@ -1,5 +1,4 @@
 import { useId, useState, type ReactNode } from 'react';
-import { useConfig } from '../context/ConfigContext';
 import { useMailboxes, type KnownMailbox } from '../context/MailboxContext';
 import { useSession } from '../context/SessionContext';
 import { useUi } from '../context/UiContext';
@@ -13,9 +12,10 @@ import {
   IconHelp,
   IconInbox,
   IconKey,
-  IconMail,
   IconPaperclip,
+  IconPencil,
   IconPlus,
+  IconSend,
   IconShield,
   IconSparkles,
   IconStar,
@@ -32,7 +32,6 @@ interface SidebarProps {
 }
 
 export function Sidebar({ view, onNavigate, collapsed = false }: SidebarProps) {
-  const config = useConfig();
   const { signedIn, isAdmin } = useSession();
   const { active } = useMailboxes();
   const ui = useUi();
@@ -79,39 +78,41 @@ export function Sidebar({ view, onNavigate, collapsed = false }: SidebarProps) {
 
   return (
     <nav aria-label="Main" className="flex h-full flex-col overflow-y-auto pb-4 bg-[#f6f8fc] dark:bg-[#1f1f1f]">
-      {/* Compose / Create button — Gmail pill style */}
-      <div className={cx('pt-4 pb-2', collapsed ? 'flex justify-center px-1' : 'px-2')}>
+      {/* Compose & Create buttons — Gmail pill style */}
+      <div className={cx('pt-4 pb-2 space-y-2', collapsed ? 'flex flex-col items-center px-1' : 'px-2')}>
+        <button
+          type="button"
+          onClick={ui.openCompose}
+          title="Compose new email"
+          className={cx(
+            'flex items-center rounded-2xl bg-[#C2E7FF] text-[#001D35] shadow-md transition-all hover:bg-[#A8D7FF] hover:shadow-lg dark:bg-[#004A77] dark:text-[#C2E7FF] dark:hover:bg-[#005C8F]',
+            focusRing,
+            collapsed ? 'h-12 w-12 justify-center p-0' : 'w-full gap-3 px-5 py-3 text-sm font-medium',
+          )}
+        >
+          <IconPencil className="h-5 w-5" />
+          {!collapsed && <span style={{ fontFamily: "'Google Sans', sans-serif" }}>Compose</span>}
+        </button>
+
         <button
           type="button"
           onClick={ui.openCreate}
           title="Create new mailbox"
           className={cx(
-            'flex items-center rounded-2xl bg-[#C2E7FF] text-[#001D35] shadow-md transition-all hover:bg-[#A8D7FF] hover:shadow-lg dark:bg-[#004A77] dark:text-[#C2E7FF] dark:hover:bg-[#005C8F]',
+            'flex items-center rounded-2xl border border-[#dadce0] bg-white text-[#444746] shadow-sm transition-all hover:bg-[#f6f8fc] dark:border-[#5f6368] dark:bg-[#2d2e30] dark:text-[#c4c7c5] dark:hover:bg-[#37393b]',
             focusRing,
-            collapsed ? 'h-12 w-12 justify-center p-0' : 'gap-3 px-5 py-4 text-sm font-medium',
+            collapsed ? 'h-10 w-10 justify-center p-0' : 'w-full gap-2 px-4 py-2 text-xs font-medium',
           )}
         >
-          <IconPlus className="h-5 w-5" />
-          {!collapsed && <span style={{ fontFamily: "'Google Sans', sans-serif" }}>Create new mailbox</span>}
+          <IconPlus className="h-4 w-4" />
+          {!collapsed && <span>New mailbox</span>}
         </button>
-        {!collapsed && config.demo_mode && (
-          <button
-            type="button"
-            className={cx(
-              'mt-2 flex w-full items-center gap-3 rounded-2xl border border-[#dadce0] bg-white px-4 py-2 text-sm font-medium text-[#444746] shadow-sm hover:bg-[#f6f8fc] dark:border-[#5f6368] dark:bg-[#2d2e30] dark:text-[#c4c7c5] dark:hover:bg-[#37393b]',
-              focusRing,
-            )}
-            onClick={ui.startDemo}
-          >
-            <IconMail className="h-4 w-4" />
-            Try demo mailbox
-          </button>
-        )}
       </div>
 
       {/* Primary nav */}
       <ul className={cx('mt-1 space-y-1', !collapsed && 'pr-3')}>
         {nav('inbox', 'Inbox', <IconInbox />, unread)}
+        {nav('sent', 'Sent', <IconSend />)}
         {nav('assistant', 'AI Assistant', <IconSparkles />)}
         {nav('starred', 'Starred', <IconStar />)}
         {nav('attachments', 'Attachments', <IconPaperclip />)}

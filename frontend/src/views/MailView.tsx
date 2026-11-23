@@ -32,7 +32,7 @@ interface MailViewProps {
   onOpen: (messageId: string | null) => void;
 }
 
-const FOLDER_LABEL: Record<MailViewProps['folder'], string> = { inbox: 'Inbox', starred: 'Starred', trash: 'Trash' };
+const FOLDER_LABEL: Record<MailViewProps['folder'], string> = { inbox: 'Inbox', sent: 'Sent', starred: 'Starred', trash: 'Trash' };
 
 export function MailView({ mailbox, folder, messageId, search, onClearSearch, refreshSignal, onOpen }: MailViewProps) {
   const config = useConfig();

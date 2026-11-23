@@ -7,6 +7,7 @@ export type KeyPanelReason = 'created' | 'rotated' | 'demo' | 'view';
 /** App-wide actions that open dialogs or navigate. Provided by <App>. */
 export interface UiActions {
   openCreate: () => void;
+  openCompose: () => void;
   openExisting: () => void;
   openHelp: () => void;
   openShortcuts: () => void;

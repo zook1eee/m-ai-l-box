@@ -24,6 +24,8 @@ from ..schemas import (
     MessageSummary,
     PatchMessageIn,
     RawOut,
+    SendEmailIn,
+    SendEmailOut,
     message_detail,
     message_summary,
 )
@@ -78,8 +80,10 @@ def apply_filters(q, *, folder="inbox", text=None, sender=None, recipient=None, 
         q = q.where(Message.deleted_at.is_not(None))
     elif folder == "starred":
         q = q.where(Message.deleted_at.is_(None), Message.is_starred.is_(True))
+    elif folder == "sent":
+        q = q.where(Message.deleted_at.is_(None), Message.source == "outbound")
     elif folder == "inbox":
-        q = q.where(Message.deleted_at.is_(None))
+        q = q.where(Message.deleted_at.is_(None), Message.source != "outbound")
     if text:
         for term in text.split()[:10]:
             q = q.where(_like(Message.search_text, term))
@@ -108,7 +112,7 @@ def apply_filters(q, *, folder="inbox", text=None, sender=None, recipient=None, 
 def list_messages(
     mb: Mailbox = Depends(mailbox_dep("messages:read")),
     db: Session = Depends(get_db),
-    folder: str = Query("inbox", pattern="^(inbox|starred|trash|all)$"),
+    folder: str = Query("inbox", pattern="^(inbox|starred|trash|sent|all)$"),
     q: str | None = Query(None, max_length=200),
     from_: str | None = Query(None, alias="from", max_length=320),
     to: str | None = Query(None, max_length=320),
@@ -312,3 +316,34 @@ async def wait_for_message(
         if time.monotonic() >= deadline:
             raise HTTPException(408, f"No matching message arrived within {timeout}s")
         await asyncio.sleep(min(1.0, max(0.1, deadline - time.monotonic())))
+
+
+@router.post("/send", response_model=SendEmailOut)
+def send_email(
+    payload: SendEmailIn,
+    mb: Mailbox = Depends(mailbox_dep("messages:write")),
+    db: Session = Depends(get_db),
+):
+    """Send an email from this mailbox to an internal or external recipient."""
+    from ..outbound import dispatch_outbound_email
+
+    try:
+        ok, details, sent_record = dispatch_outbound_email(
+            db=db,
+            sender_mailbox=mb,
+            to_address=payload.to,
+            subject=payload.subject,
+            text_body=payload.text_body,
+            html_body=payload.html_body,
+        )
+        return SendEmailOut(
+            success=ok,
+            message_id=sent_record.id,
+            delivery_status="sent" if ok else "queued",
+            sent_to=payload.to,
+            details=details,
+        )
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"Sending failed: {e}")
