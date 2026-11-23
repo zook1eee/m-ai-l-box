@@ -30,7 +30,7 @@ import { AdminView } from './views/AdminView';
 import { ApiKeysView } from './views/ApiKeysView';
 import { AttachmentsView } from './views/AttachmentsView';
 import { ClaudeChatView } from './views/ClaudeChatView';
-import { FloatingChatWidget } from './components/FloatingChatWidget';
+import { FloatingComposeButton } from './components/FloatingComposeButton';
 import { FilesView } from './views/FilesView';
 import { MailView } from './views/MailView';
 import { EMPTY_SEARCH, type SearchState } from './views/search';
@@ -390,7 +390,7 @@ function Shell() {
       <ShortcutsDialog open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       {config.accounts_enabled && <AuthDialog mode={authMode} onClose={() => setAuthMode(null)} onModeChange={setAuthMode} />}
       <KeyPanelDialog data={keyPanel} onClose={() => setKeyPanel(null)} />
-      {!composeOpen && <FloatingChatWidget />}
+      {!composeOpen && <FloatingComposeButton />}
     </UiContext.Provider>
   );
 }
