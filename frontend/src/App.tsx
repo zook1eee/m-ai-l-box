@@ -304,6 +304,9 @@ function Shell() {
   else if (view === 'account') content = <AccountView />;
   else content = <AdminView />;
 
+  const isWelcomeScreen = view === 'welcome' || (!active && (MAIL_VIEWS.includes(view) || view === 'attachments'));
+  const effectiveCollapsed = isWelcomeScreen || sidebarCollapsed;
+
   return (
     <UiContext.Provider value={ui}>
       <div className="flex h-[100dvh] flex-col bg-[#f6f8fc] text-[#202124] dark:bg-[#1f1f1f] dark:text-[#e3e3e3]">
@@ -331,11 +334,11 @@ function Shell() {
           <aside
             className={cx(
               'hidden shrink-0 bg-[#f6f8fc] transition-all duration-200 dark:bg-[#1f1f1f] lg:block',
-              sidebarCollapsed ? 'w-18' : 'w-64',
+              effectiveCollapsed ? 'w-18' : 'w-64',
             )}
             aria-label="Sidebar"
           >
-            <Sidebar view={view} onNavigate={(v) => go(v)} collapsed={sidebarCollapsed} />
+            <Sidebar view={view} onNavigate={(v) => go(v)} collapsed={effectiveCollapsed} />
           </aside>
           {drawerOpen && (
             <div className="fixed inset-0 z-40 lg:hidden">
