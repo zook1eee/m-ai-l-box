@@ -15,13 +15,18 @@ export function WelcomeView() {
     <div className="flex-1 overflow-y-auto bg-[#f6f8fc] dark:bg-[#1f1f1f]">
       <div className="mx-auto max-w-2xl px-6 py-16 sm:py-24 text-center">
 
-        {/* Brand Logo */}
-        <div className="mx-auto mb-2 flex justify-center">
+        {/* Brand Logo & Wordmark */}
+        <div className="mx-auto mb-4 flex flex-col items-center justify-center">
           <img
-            src="/logo-full.png"
+            src="/logo-icon.png?v=3"
             alt={config.app_name || 'M-Ai-L Box'}
-            className="h-32 sm:h-40 w-auto object-contain drop-shadow-md"
+            className="h-28 sm:h-36 w-auto object-contain transition-transform hover:scale-105"
           />
+          <div className="mt-3 flex items-center tracking-tight text-3xl sm:text-4xl font-bold leading-none font-sans select-none">
+            <span className="text-[#0d1b3e] dark:text-white">M-</span>
+            <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
+            <span className="text-[#0d1b3e] dark:text-white">-L Box</span>
+          </div>
         </div>
         <h1 className="sr-only">{config.app_name || 'M-Ai-L Box'}</h1>
 
