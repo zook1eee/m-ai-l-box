@@ -102,12 +102,12 @@ export function Sidebar({ view, onNavigate, collapsed = false }: SidebarProps) {
           onClick={ui.openCreate}
           title="Create new mailbox"
           className={cx(
-            'flex items-center rounded-2xl border border-[#dadce0] bg-white text-[#444746] shadow-sm transition-all hover:bg-[#f6f8fc] dark:border-[#5f6368] dark:bg-[#2d2e30] dark:text-[#c4c7c5] dark:hover:bg-[#37393b]',
+            'flex items-center justify-center rounded-full border border-[#dadce0] bg-[#f8fafd] text-[#1f1f1f] shadow-sm transition-all hover:bg-[#e8eaed] hover:shadow dark:border-[#444746] dark:bg-[#303134] dark:text-[#e3e3e3] dark:hover:bg-[#3c4043]',
             focusRing,
-            collapsed ? 'h-10 w-10 justify-center p-0' : 'w-full gap-2 px-4 py-2 text-xs font-medium',
+            collapsed ? 'h-10 w-10 p-0' : 'w-full gap-2 px-4 py-2 text-xs font-semibold tracking-wide',
           )}
         >
-          <IconPlus className="h-4 w-4" />
+          <IconPlus className="h-4 w-4 text-[#1A73E8] dark:text-[#8ab4f8]" />
           {!collapsed && <span>New mailbox</span>}
         </button>
       </div>
