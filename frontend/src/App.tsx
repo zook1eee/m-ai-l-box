@@ -383,7 +383,7 @@ function Shell() {
       <ShortcutsDialog open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       {config.accounts_enabled && <AuthDialog mode={authMode} onClose={() => setAuthMode(null)} onModeChange={setAuthMode} />}
       <KeyPanelDialog data={keyPanel} onClose={() => setKeyPanel(null)} />
-      <FloatingChatWidget />
+      {!composeOpen && <FloatingChatWidget />}
     </UiContext.Provider>
   );
 }

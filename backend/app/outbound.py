@@ -193,3 +193,4 @@ def dispatch_outbound_email(
         db, sender_mailbox, target, subject, text_body, html_body, raw_bytes, msg_id_header
     )
     return ok, details, sent_record
+
