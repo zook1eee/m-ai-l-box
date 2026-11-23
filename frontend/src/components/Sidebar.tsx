@@ -37,6 +37,8 @@ export function Sidebar({ view, onNavigate, collapsed = false }: SidebarProps) {
   const ui = useUi();
   const unread = active?.info?.unread_count ?? 0;
 
+  const isExpired = active?.gone === true;
+
   // Gmail-style pill nav item
   const nav = (v: View, text: string, icon: ReactNode, count?: number) => (
     <li>
@@ -83,9 +85,10 @@ export function Sidebar({ view, onNavigate, collapsed = false }: SidebarProps) {
         <button
           type="button"
           onClick={ui.openCompose}
-          title="Compose new email"
+          disabled={!active || isExpired}
+          title={isExpired ? 'Mailbox has expired' : !active ? 'No active mailbox' : 'Compose new email'}
           className={cx(
-            'flex items-center rounded-2xl bg-[#C2E7FF] text-[#001D35] shadow-md transition-all hover:bg-[#A8D7FF] hover:shadow-lg dark:bg-[#004A77] dark:text-[#C2E7FF] dark:hover:bg-[#005C8F]',
+            'flex items-center rounded-2xl bg-[#C2E7FF] text-[#001D35] shadow-md transition-all hover:bg-[#A8D7FF] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-[#C2E7FF] dark:bg-[#004A77] dark:text-[#C2E7FF] dark:hover:bg-[#005C8F]',
             focusRing,
             collapsed ? 'h-12 w-12 justify-center p-0' : 'w-full gap-3 px-5 py-3 text-sm font-medium',
           )}

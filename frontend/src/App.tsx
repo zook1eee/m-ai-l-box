@@ -183,6 +183,10 @@ function Shell() {
         setCreateOpen(true);
       },
       openCompose: () => {
+        if (!active || active.gone) {
+          toast(active?.gone ? 'This mailbox has expired. Please select or create an active mailbox.' : 'Please select or create a mailbox first.', 'error');
+          return;
+        }
         setDrawerOpen(false);
         setComposeOpen(true);
       },
