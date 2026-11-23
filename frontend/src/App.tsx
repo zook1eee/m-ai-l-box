@@ -353,18 +353,10 @@ function Shell() {
                 <div className="flex items-center justify-between border-b border-[#e0e0e0] px-4 py-3 dark:border-[#3c4043]">
                   <div className="flex items-center gap-2">
                     <img src="/logo-icon.png" alt="Logo" className="h-7 w-auto object-contain" />
-                    <div>
-                      <img
-                        src="/logo-text.png"
-                        alt={config.app_name || 'M-Ai-L Box'}
-                        className="h-4 w-auto object-contain dark:hidden"
-                      />
-                      <img
-                        src="/logo-text-dark.png"
-                        alt={config.app_name || 'M-Ai-L Box'}
-                        className="hidden h-4 w-auto object-contain dark:block"
-                      />
-                      {config.tagline && <div className="mt-0.5 text-[9px] font-medium text-[#1A73E8] dark:text-[#8ab4f8]">{config.tagline}</div>}
+                    <div className="flex items-center tracking-tight text-[17px] font-bold leading-none font-sans select-none">
+                      <span className="text-[#0d1b3e] dark:text-white">M-</span>
+                      <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
+                      <span className="text-[#0d1b3e] dark:text-white">-L Box</span>
                     </div>
                   </div>
                   <button type="button" className={iconBtn} onClick={() => setDrawerOpen(false)} aria-label="Close navigation menu">

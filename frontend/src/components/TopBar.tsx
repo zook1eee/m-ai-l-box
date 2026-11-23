@@ -30,7 +30,6 @@ interface TopBarProps {
 }
 
 export function TopBar({ onOpenDrawer, onToggleSidebar, search, onSearch, searchInputRef, onRefresh, refreshing, liveStatus }: TopBarProps) {
-  const config = useConfig();
   const { theme, toggle } = useTheme();
   const ui = useUi();
   const [q, setQ] = useState(search.q);
@@ -103,23 +102,12 @@ export function TopBar({ onOpenDrawer, onToggleSidebar, search, onSearch, search
                 e.preventDefault();
                 ui.navigate('welcome');
               }}
-              className="flex flex-col justify-center cursor-pointer outline-none group text-left"
+              className="flex items-center tracking-tight text-[19px] font-bold leading-none font-sans select-none cursor-pointer outline-none group"
               title="M-Ai-L Box Home"
             >
-              <div className="flex items-center tracking-tight text-[18px] font-bold leading-none font-sans select-none">
-                <span className="text-[#0d1b3e] dark:text-white group-hover:opacity-80">M-</span>
-                <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
-                <span className="text-[#0d1b3e] dark:text-white group-hover:opacity-80">-L Box</span>
-              </div>
-              {config.tagline && (
-                <div className="mt-0.5 flex items-center whitespace-nowrap text-[9.5px] font-normal leading-none tracking-normal select-none">
-                  <span className="text-slate-500 dark:text-slate-400">Built for&nbsp;</span>
-                  <span className="font-medium text-[#0070f3] dark:text-[#38bdf8]">developers</span>
-                  <span className="text-slate-500 dark:text-slate-400">.&nbsp;Ready for&nbsp;</span>
-                  <span className="font-medium text-[#0070f3] dark:text-[#38bdf8]">testers</span>
-                  <span className="text-slate-500 dark:text-slate-400">.</span>
-                </div>
-              )}
+              <span className="text-[#0d1b3e] dark:text-white group-hover:opacity-80">M-</span>
+              <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
+              <span className="text-[#0d1b3e] dark:text-white group-hover:opacity-80">-L Box</span>
             </a>
           </div>
         </div>
@@ -144,23 +132,12 @@ export function TopBar({ onOpenDrawer, onToggleSidebar, search, onSearch, search
               e.preventDefault();
               ui.navigate('welcome');
             }}
-            className="flex flex-col justify-center cursor-pointer outline-none text-left"
+            className="flex items-center tracking-tight text-[17px] font-bold leading-none font-sans select-none cursor-pointer outline-none"
             title="M-Ai-L Box Home"
           >
-            <div className="flex items-center tracking-tight text-[17px] font-bold leading-none font-sans select-none">
-              <span className="text-[#0d1b3e] dark:text-white">M-</span>
-              <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
-              <span className="text-[#0d1b3e] dark:text-white">-L Box</span>
-            </div>
-            {config.tagline && (
-              <div className="mt-0.5 flex items-center whitespace-nowrap text-[9px] font-normal leading-none select-none">
-                <span className="text-slate-500 dark:text-slate-400">Built for&nbsp;</span>
-                <span className="font-medium text-[#0070f3] dark:text-[#38bdf8]">devs</span>
-                <span className="text-slate-500 dark:text-slate-400">.&nbsp;Ready for&nbsp;</span>
-                <span className="font-medium text-[#0070f3] dark:text-[#38bdf8]">testers</span>
-                <span className="text-slate-500 dark:text-slate-400">.</span>
-              </div>
-            )}
+            <span className="text-[#0d1b3e] dark:text-white">M-</span>
+            <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
+            <span className="text-[#0d1b3e] dark:text-white">-L Box</span>
           </a>
         </div>
 
