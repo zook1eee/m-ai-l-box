@@ -102,7 +102,7 @@ def record_sent_message(
 ) -> Message:
     """Store a copy of the sent email in the sender's mailbox with source='outbound'."""
     now = utcnow()
-    snippet = make_snippet(text_body, html_body or "")
+    snippet = make_snippet(text_body or html_body or "", 160)
 
     sent_msg = Message(
         mailbox_id=sender_mailbox.id,
