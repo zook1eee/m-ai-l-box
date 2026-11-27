@@ -351,13 +351,8 @@ function Shell() {
                 className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-[#f6f8fc] shadow-2xl motion-safe:animate-[slideIn_160ms_ease-out] dark:bg-[#1f1f1f]"
               >
                 <div className="flex items-center justify-between border-b border-[#e0e0e0] px-4 py-3 dark:border-[#3c4043]">
-                  <div className="flex items-center gap-2">
-                    <img src="/logo-icon.png" alt="Logo" className="h-7 w-auto object-contain" />
-                    <div className="flex items-center tracking-tight text-[17px] font-bold leading-none font-sans select-none">
-                      <span className="text-[#0d1b3e] dark:text-white">M-</span>
-                      <span className="text-[#0070f3] dark:text-[#2997ff]">Ai</span>
-                      <span className="text-[#0d1b3e] dark:text-white">-L Box</span>
-                    </div>
+                  <div className="flex items-center">
+                    <img src="/logo-icon.png" alt="M-Ai-L Box Logo" className="h-7 w-auto object-contain" />
                   </div>
                   <button type="button" className={iconBtn} onClick={() => setDrawerOpen(false)} aria-label="Close navigation menu">
                     <IconX />
